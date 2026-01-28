@@ -1,4 +1,4 @@
-import React, { useState, type FormEvent } from "react";
+import React, { useEffect, useState, type FormEvent } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { X } from "lucide-react";
 import { Label } from "@radix-ui/react-dropdown-menu";
@@ -26,6 +26,8 @@ import { getOptimizedMedia } from "@/featues/imagekit/optimizedMedia";
 import { useNavigate } from "react-router-dom";
 import { authenticator } from "@/featues/imagekit/authenticator";
 import { createProductsThunk } from "@/featues/products/products.thunk";
+import { motion } from "motion/react";
+import AiProduct from "./AiProduct";
 
 const UploadProducts = () => {
   const dispatch = useAppDispatch();
@@ -44,6 +46,21 @@ const UploadProducts = () => {
   const [price, setPrice] = useState<number>(0);
   const [stock, setStock] = useState<number>(1);
   const { user } = useAppSelector((state) => state.user);
+  const [open, setOpen] = useState(false);
+  const { items } = useAppSelector((state) => state.aiProductGenerator);
+
+  useEffect(() => {
+    if (!items) return;
+
+    setName(items.name ?? "");
+    setTitle(items.title ?? "");
+    setDescription(items.description ?? "");
+    setCategory((items.category as categoryLevel) ?? "Fashion");
+    setSize((items.size as sizelevel) ?? "md");
+    setPrice(items.price ?? 0);
+    setStock(items.stock ?? 1);
+    setGender((items.gender as genderLevel) ?? null);
+  }, [items]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -100,9 +117,33 @@ const UploadProducts = () => {
       <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="shadow-md">
           <CardHeader>
-            <CardTitle className="text-2xl font-semibold">
-              Create New Products
-            </CardTitle>
+            <div className="flex justify-between">
+              <CardTitle className="text-2xl font-semibold">
+                Create New Products
+              </CardTitle>
+              <div>
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <Button
+                    onClick={() => setOpen(true)}
+                    // disabled={!mediaUrl}
+                    className={`bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:brightness-110 shadow-lg 
+    ${!mediaUrl ? "cursor-not-allowed opacity-20" : "cursor-pointer"}
+  `}
+                  >
+                    Generate with AI ✨
+                  </Button>
+                </motion.div>
+
+                <AiProduct open={open} setOpen={setOpen} mediaUrl={mediaUrl} />
+              </div>
+            </div>
+
             <p className="text-sm text-muted-foreground">
               Fill in the details below to publish your product
             </p>
@@ -199,7 +240,7 @@ const UploadProducts = () => {
                     setDescription(e.target.value);
                     setError("");
                   }}
-                  maxLength={200}
+                  // maxLength={200}
                   required
                 />
               </div>
@@ -272,7 +313,7 @@ const UploadProducts = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-3">
                 <div className="space-y-2">
                   <Label>Price ($)</Label>
                   <Input

@@ -5,6 +5,7 @@ import productReducer from "../featues/products/products.slice";
 import paymentReducer from "../featues/payment/payment.slice";
 import InvoiceReducer from "../featues/invoice/invoice.slice";
 import reportReducer from "../featues/report/report.slice";
+import AiproductsReducer from "../featues/ai/ai.slice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     payment: paymentReducer,
     invoice: InvoiceReducer,
     report: reportReducer,
+    aiProductGenerator: AiproductsReducer,
   },
 });
 
