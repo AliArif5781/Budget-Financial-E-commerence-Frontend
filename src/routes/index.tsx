@@ -1,10 +1,7 @@
-import ProtectedRoute from "@/components/ProtectedRoute";
-import PublicRoute from "@/components/PublicRoute";
 import Layout from "@/layout";
 import Dashboard from "@/components/AdminDashboard/Dashboard";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
-import Profile from "@/pages/Profile";
 import Signup from "@/pages/Signup";
 import { createBrowserRouter } from "react-router-dom";
 import Report from "@/components/AdminDashboard/Report";
@@ -22,6 +19,7 @@ import GetAllInvoice from "@/components/AdminDashboard/GetAllInvoice";
 import ReportHistory from "@/pages/ReportHistory";
 import AllProducts from "@/pages/AllProducts";
 import UserInvoiceHistory from "@/pages/UserInvoiceHistory";
+import SalesChart from "@/components/Chart/SaleChart";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +92,10 @@ const router = createBrowserRouter([
       {
         path: "user-invoice",
         element: <UserInvoiceHistory />,
+      },
+      {
+        path: "chart",
+        element: <SalesChart />,
       },
     ],
   },

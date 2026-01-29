@@ -210,11 +210,28 @@ export interface UserInvoice {
   mode: string; //
   payment_Method: string; //
   total: string; //
-  user: string; //
+  user: {
+    firstName: string;
+  }; //
   items: InvoiceItem[]; //
   currenct: string;
   environment: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
+}
+
+// export interface chartDAta {
+//   createdAt: Date;
+//   total: string;
+// }
+
+export interface ChartDataRaw {
+  createdAt: string;
+  total: string;
+}
+
+export interface ChartDataFormatted {
+  createdAt: string; // e.g. "2026-01-27"
+  total: number;
 }

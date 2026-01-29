@@ -120,11 +120,11 @@ const AllProducts = () => {
               key={product._id}
               className="group overflow-hidden hover:shadow-lg transition-shadow duration-200 px-3"
             >
-              <div className="relative rounded-md overflow-hidden">
+              <div className="relative rounded-md overflow-hidden aspect-video">
                 <img
                   src={product.mediaUrl}
                   alt={product.title}
-                  className="h-56 w-full object-contain"
+                  className="h-54 w-full object-contain"
                   loading="lazy"
                 />
 

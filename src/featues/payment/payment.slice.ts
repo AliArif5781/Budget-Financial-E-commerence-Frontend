@@ -109,7 +109,7 @@ const paymentSlice = createSlice({
       })
       .addCase(getAllRevenuethunk.fulfilled, (state, action) => {
         state.loading.getRevenueLoading = false;
-        state.getRevenueData = action.payload.total;
+        state.getRevenueData = action.payload;
         state.error.getRevenueError = null;
       })
       .addCase(getAllRevenuethunk.rejected, (state, action) => {

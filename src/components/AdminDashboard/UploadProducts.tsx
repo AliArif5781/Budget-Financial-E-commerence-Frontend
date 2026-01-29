@@ -131,7 +131,7 @@ const UploadProducts = () => {
                 >
                   <Button
                     onClick={() => setOpen(true)}
-                    // disabled={!mediaUrl}
+                    disabled={!mediaUrl}
                     className={`bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:brightness-110 shadow-lg 
     ${!mediaUrl ? "cursor-not-allowed opacity-20" : "cursor-pointer"}
   `}

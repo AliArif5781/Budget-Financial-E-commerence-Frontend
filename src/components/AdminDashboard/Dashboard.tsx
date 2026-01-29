@@ -8,13 +8,12 @@ import AllProductsData from "./CardData/AllProductsData";
 import AllUsersData from "./CardData/AllUsersData";
 import AllRevenueData from "./CardData/AllRevenueData";
 import AllAdminData from "./CardData/AllAdminData";
+import SalesChart from "../Chart/SaleChart";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
 
-  const { allCount, loading, error } = useAppSelector((state) => state.user);
-
-  console.log(allCount, "AC");
+  // const { allCount, loading, error } = useAppSelector((state) => state.user);
 
   // useEffect(() => {
   //   dispatch(getAllUsersAndAdminThunk());
@@ -33,6 +32,15 @@ const Dashboard = () => {
         <AllUsersData />
         <AllAdminData />
         <AllProductsData />
+      </div>
+
+      {/* chart */}
+      <div className="grid grid-cols-12 py-10">
+        <Card className="col-span-8 min-h-65">
+          <SalesChart />
+        </Card>
+
+        <div>others</div>
       </div>
     </div>
   );

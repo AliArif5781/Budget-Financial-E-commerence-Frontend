@@ -73,7 +73,8 @@ export const getAllRevenuethunk = createAsyncThunk(
   "user/revenue",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get("payments/getAllRevenue");
+      // const response = await api.get("payments/getAllRevenue");
+      const response = await api.get("invoice/getAllValue");
       return response.data;
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;

@@ -1,4 +1,3 @@
-// featues/products/products.slice.ts
 import { createSlice } from "@reduxjs/toolkit";
 import { AiProductThunk } from "./ai.thunk";
 
@@ -12,23 +11,6 @@ export interface AiProduct {
   size?: string;
   title?: string;
 }
-
-// export interface Product {
-//   _id: string;
-//   name: string;
-//   title?: string;
-//   description: string;
-//   price: number;
-//   category: string;
-//   gender: string;
-//   size: string;
-//   stock: number;
-//   mediaType: string;
-//   mediaUrl?: string;
-//   thumbnailUrl?: string;
-//   createdAt: string;
-//   updatedAt: string;
-// }
 
 interface ProductsState {
   items: AiProduct | null;

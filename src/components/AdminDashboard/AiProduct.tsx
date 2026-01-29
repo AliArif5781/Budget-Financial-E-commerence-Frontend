@@ -32,6 +32,9 @@ export default function GenerateAiModal({
   setOpen: (val: boolean) => void;
 }) {
   const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector(
+    (state) => state.aiProductGenerator,
+  );
   const [localError, setLocalError] = useState("");
   const [data, setData] = useState({
     name: "",
@@ -142,10 +145,10 @@ export default function GenerateAiModal({
             //   handleGenerativeAi();
             //   setOpen(false);
             // }}
-            disabled={!mediaUrl}
+            disabled={!mediaUrl || loading.aiProductLoading}
             onClick={handleGenerativeAi}
           >
-            Generate
+            {loading.aiProductLoading ? "Loading..." : " Generate"}
           </Button>
         </DialogFooter>
       </DialogContent>

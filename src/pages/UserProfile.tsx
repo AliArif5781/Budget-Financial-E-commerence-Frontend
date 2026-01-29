@@ -1,11 +1,9 @@
 import { useAppDispatch, useAppSelector } from "@/app/hook";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getUserBudgetThunk } from "@/featues/budgetTracker/budget.thunk";
-import React, { use, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const UserProfile = () => {
   const dispatch = useAppDispatch();
@@ -67,7 +65,8 @@ const UserProfile = () => {
                       <span className="text-red-500">{error}</span>
                     ) : budget ? (
                       <div className="font-semibold">
-                        {budget?.budgetCurrency} {budget.budgetAmount}
+                        {budget?.budgetCurrency}{" "}
+                        {budget.budgetAmount.toFixed(2)}
                       </div>
                     ) : (
                       <span className="text-red-600 font-semibold">
@@ -98,12 +97,12 @@ const UserProfile = () => {
                 </div>
               </div>
             </CardContent>
-            <Link
+            {/* <Link
               to={"/update-profile"}
               className="flex justify-end items-end h-full pr-5"
             >
-              {/* <Button>Update Profile</Button> */}
-            </Link>
+              <Button>Update Profile</Button>
+            </Link> */}
           </Card>
         </div>
       </div>

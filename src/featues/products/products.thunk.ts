@@ -1,9 +1,8 @@
 import { api } from "@/axios/api";
 import type { ProductsType } from "@/types/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Axios, AxiosError } from "axios";
+import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { createTailwindMerge } from "tailwind-merge";
 
 export const createProductsThunk = createAsyncThunk(
   "create/products",
@@ -214,7 +213,7 @@ export const getAllProductsCountThunk = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("products/productscount");
-      console.log(response.data, "getAllProductsCountThunk");
+      // console.log(response.data, "getAllProductsCountThunk");
       return response.data;
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
