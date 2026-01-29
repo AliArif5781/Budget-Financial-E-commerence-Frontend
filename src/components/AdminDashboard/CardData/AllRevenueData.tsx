@@ -15,6 +15,7 @@ const AllRevenueData = () => {
   useEffect(() => {
     dispatch(getAllRevenuethunk());
   }, [dispatch]);
+
   return (
     <Card className="max-w-xs rounded-lg">
       <CardHeader className="flex items-center justify-between pb-2">
@@ -41,7 +42,7 @@ const AllRevenueData = () => {
           {getRevenueLoading ? (
             <Skeleton className="h-7 w-16" />
           ) : (
-            <>${getRevenueData}</>
+            <>${getRevenueData.toFixed(2)}</>
           )}
           {getRevenueError && (
             <div className="text-sm font-normal text-red-600">
