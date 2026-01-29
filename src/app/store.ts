@@ -6,6 +6,7 @@ import paymentReducer from "../featues/payment/payment.slice";
 import InvoiceReducer from "../featues/invoice/invoice.slice";
 import reportReducer from "../featues/report/report.slice";
 import AiproductsReducer from "../featues/ai/ai.slice";
+import ChartReducer from "../featues/chart/chart.slice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     invoice: InvoiceReducer,
     report: reportReducer,
     aiProductGenerator: AiproductsReducer,
+    chart: ChartReducer,
   },
 });
 
