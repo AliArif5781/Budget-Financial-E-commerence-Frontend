@@ -22,7 +22,9 @@ const GetAllInvoice = () => {
     dispatch(getAllInvoiceThunk());
   }, [dispatch]);
 
-  console.log(getAllInvoice, "GAI");
+  if (error.getAllInvoiceError) {
+    return <div className="text-red-500">{error.getAllInvoiceError}</div>;
+  }
 
   return (
     <div className="p-6 space-y-4">
@@ -34,6 +36,7 @@ const GetAllInvoice = () => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-30">Invoice #</TableHead>
+              <TableHead>Name</TableHead>
               <TableHead>Bank</TableHead>
               <TableHead>Order</TableHead>
               <TableHead>Payment Method</TableHead>
@@ -63,6 +66,7 @@ const GetAllInvoice = () => {
                 <TableCell className="font-medium">{index + 1}</TableCell>
 
                 {/* Use the correct field names */}
+                <TableCell>{item.user.firstName}</TableCell>
                 <TableCell>SafePay, {item.environment}</TableCell>
 
                 <TableCell>
