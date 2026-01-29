@@ -249,32 +249,3 @@ export const getAllProductsCursorThunk = createAsyncThunk(
     }
   },
 );
-
-// export const handlePaymentThunk = createAsyncThunk(
-//   "payment/users",
-//   async (totalPrice: number, { rejectWithValue }) => {
-//     try {
-//       // Step 1: Get a payment token from backend
-//       const tokenResponse = await api.post("products/payments/token", {
-//         amount: totalPrice * 100,
-//       });
-//       const token = tokenResponse.data.token;
-//       console.log(token, "TOEKN");
-//       // Step 2: Send the token to backend to process payment
-//       const paymentResponse = await api.post("products/payments", {
-//         token,
-//         amount: totalPrice * 100,
-//         merchant_api_key: import.meta.env.VITE_MERCHANT_API_KEY,
-//       });
-
-//       console.log(paymentResponse.data, "paymentResponseThunk");
-//       return paymentResponse.data; // contains success/failure info
-//     } catch (error) {
-//       const err = error as AxiosError<{ message: string }>;
-//       const message =
-//         err.response?.data.message || "Payment did not proceed, try again";
-//       toast.error(message);
-//       return rejectWithValue(message);
-//     }
-//   }
-// );

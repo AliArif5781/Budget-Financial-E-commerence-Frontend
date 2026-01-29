@@ -235,3 +235,9 @@ export interface ChartDataFormatted {
   createdAt: string; // e.g. "2026-01-27"
   total: number;
 }
+
+// coupon
+
+export interface couponInterface {
+  coupon: string;
+}

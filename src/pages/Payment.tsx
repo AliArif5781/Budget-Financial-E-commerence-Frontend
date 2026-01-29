@@ -107,10 +107,8 @@ const Payment = () => {
           }),
         );
 
-        // console.log(result, "R");
         navigate("/invoice");
       } else {
-        // toast.error(result.message || "Payment failed");
         toast.error(result.payment.status.errors || "Payment failed");
       }
     } catch (err) {
@@ -227,7 +225,6 @@ const Payment = () => {
         </CardContent>
       </Card>
 
-      {/* RIGHT SIDE — CART SUMMARY */}
       <Card className="lg:col-span-5 border border-b-8 px-6 lg:px-10 w-full">
         <CardTitle className="text-xl lg:text-2xl font-semibold">
           Your Cart

@@ -40,7 +40,7 @@ const Dashboard = () => {
           <SalesChart />
         </Card>
 
-        <div>others</div>
+        {/* <div>others</div> */}
       </div>
     </div>
   );

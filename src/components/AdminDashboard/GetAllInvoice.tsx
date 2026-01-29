@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/app/hook";
 import { getAllInvoiceThunk } from "@/featues/invoice/invoice.thunk";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
   Table,
   TableBody,

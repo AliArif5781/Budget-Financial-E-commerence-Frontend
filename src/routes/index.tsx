@@ -20,6 +20,7 @@ import ReportHistory from "@/pages/ReportHistory";
 import AllProducts from "@/pages/AllProducts";
 import UserInvoiceHistory from "@/pages/UserInvoiceHistory";
 import SalesChart from "@/components/Chart/SaleChart";
+import Coupon from "@/components/AdminDashboard/Coupon";
 
 const router = createBrowserRouter([
   {
@@ -128,6 +129,10 @@ const router = createBrowserRouter([
       {
         path: "getAllInvoice",
         element: <GetAllInvoice />,
+      },
+      {
+        path: "coupon",
+        element: <Coupon />,
       },
     ],
   },

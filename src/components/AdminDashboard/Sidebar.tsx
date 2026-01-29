@@ -11,6 +11,9 @@ import {
   Package,
   Folder,
   ClipboardClock,
+  TicketPercent,
+  TicketCheckIcon,
+  Ticket,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -46,6 +49,11 @@ const Sidebar = () => {
       name: "Invoice",
       path: "/getAllInvoice",
       icon: <ClipboardClock className="w-4 h-4" />,
+    },
+    {
+      name: "Coupon",
+      path: "/coupon",
+      icon: <Ticket className="w-4 h-4" />,
     },
   ];
 
