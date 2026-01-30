@@ -11,6 +11,19 @@ const Coupon = () => {
   const [coupon, setCoupon] = useState<string>("");
   const [error, setError] = useState("");
 
+  const handleGenerateCoupon = () => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let resut = "";
+
+    for (let i = 0; i < 8; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      resut += chars[randomIndex];
+    }
+    setCoupon(resut);
+    return resut;
+  };
+
   const handleCoupon = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -43,12 +56,17 @@ const Coupon = () => {
               <Input
                 id="code"
                 placeholder="ABvg5567ZZ"
+                value={coupon}
                 onChange={(e) => {
                   setError("");
                   setCoupon(e.target.value);
                 }}
               />
-              <Button variant="outline" className="cursor-pointer">
+              <Button
+                variant="outline"
+                className="cursor-pointer"
+                onClick={handleGenerateCoupon}
+              >
                 Generate
               </Button>
             </div>

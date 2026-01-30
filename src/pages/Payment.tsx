@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { setUserBudgetThunk } from "@/featues/budgetTracker/budget.thunk";
+import { checkCouponThunk } from "@/featues/coupon/coupon.thunk";
 import {
   handlePaymentThunk,
   storeUserPaymentThunk,
@@ -12,7 +14,7 @@ import {
 import { getAddToCartThunk } from "@/featues/products/products.thunk";
 import { updateUserDetails } from "@/featues/user/user.thunk";
 import { Tag } from "lucide-react";
-import React, { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -23,26 +25,34 @@ const Payment = () => {
     user,
     loading: { updateUserloading },
   } = useAppSelector((state) => state.user);
-  const { cartItems, loading, error } = useAppSelector(
-    (state) => state.products,
-  );
+  const {
+    cartItems,
+    loading: { getAddToCartLoading },
+    error,
+  } = useAppSelector((state) => state.products);
 
   const {
     loading: { paymentLoading },
   } = useAppSelector((state) => state.payment);
 
   const { budget } = useAppSelector((state) => state.budget);
+  const {
+    loading: { checkCouponLoading },
+    checkCoupon,
+  } = useAppSelector((state) => state.coupon);
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
   const [address, setAddress] = useState("");
+  const [coupon, setCoupon] = useState("");
+  const [Error, setError] = useState("");
 
   useEffect(() => {
-    if (!loading.getAddToCartLoading && cartItems.length === 0) {
+    if (!getAddToCartLoading && cartItems.length === 0) {
       toast.error("Your cart is Empty");
       navigate("/home");
     }
-  }, [cartItems, loading.getAddToCartLoading, navigate]);
+  }, [cartItems, getAddToCartLoading, navigate]);
 
   useEffect(() => {
     dispatch(getAddToCartThunk());
@@ -83,13 +93,15 @@ const Payment = () => {
     quantity: item.quantity ?? 1,
   }));
 
+  const finalPrice = checkCoupon?.total ?? TotalPrice;
+
   const handlePaymentMethod = async () => {
     try {
       const result = await dispatch(handlePaymentThunk(Subtotal)).unwrap();
       if (result.payment.status.message === "success") {
         toast.success(result?.message || "Payment successful");
         const paymentData = result.payment.data.tracker;
-        const val = Number(budget?.budgetAmount) - Number(TotalPrice);
+        const val = Number(budget?.budgetAmount) - Number(finalPrice);
 
         dispatch(
           setUserBudgetThunk({ budgetAmount: val, budgetCurrency: "$" }),
@@ -100,7 +112,7 @@ const Payment = () => {
             mode: paymentData.mode,
             token: paymentData.token,
             payment_method_kind: paymentData.payment_method_kind,
-            amount: Number(TotalPrice),
+            amount: Number(finalPrice),
             currency: paymentData.purchase_totals.quote_amount.currency,
             environment: paymentData.environment,
             items: paymentItems,
@@ -116,6 +128,21 @@ const Payment = () => {
     }
   };
 
+  const handleCoupon = () => {
+    if (!coupon || coupon.trim().length <= 7) {
+      return setError("Coupon value must be 8 character long!");
+    }
+
+    dispatch(
+      checkCouponThunk({
+        coupon,
+        total: Number(TotalPrice.toFixed(2)),
+      }),
+    );
+    //    ${TotalPrice.toFixed(2)}
+  };
+
+  console.log(checkCoupon, "CC");
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 p-3 lg:px-10">
       {/* LEFT SIDE — SHIPPING FORM */}
@@ -261,11 +288,35 @@ const Payment = () => {
             </div>
           ))}
         </Card>
-
-        <div className="relative w-full md:w-44 mt-3">
-          <Input className="pl-10" placeholder="Discount Code" />
+        {/* md:w-44 */}
+        <div className="relative w-full mt-3">
+          <div className="flex justify-between w-full">
+            <Input
+              className="pl-10 w-44"
+              placeholder="Discount Code"
+              value={coupon}
+              onChange={(e) => {
+                setError("");
+                setCoupon(e.target.value);
+              }}
+              min={7}
+            />
+            <Button
+              variant={"secondary"}
+              className="cursor-pointer"
+              onClick={handleCoupon}
+            >
+              Apply Coupon
+            </Button>
+          </div>
+          {!checkCouponLoading && checkCoupon?.total && (
+            <span className="text-green-600 text-[10px] font-medium pl-1">
+              {checkCoupon.message}
+            </span>
+          )}
           <Tag className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
         </div>
+        <span className="block text-xs text-red-500">{Error}</span>
         {/* SUBTOTAL */}
         <div className="space-y-2 border-b pb-2 mt-3 text-sm">
           <div className="flex justify-between text-[15px]">
@@ -285,10 +336,22 @@ const Payment = () => {
         {/* Total after shipping and all tax */}
 
         <div className="flex justify-between">
-          <span className="font-medium">Total</span>
-          <span className="font-semibold text-lg">
-            ${TotalPrice.toFixed(2)}
+          <span className="font-medium">
+            {checkCoupon?.total ? <span className="">Old Price</span> : "Total"}
           </span>
+          <span className="font-semibold text-lg">
+            {checkCouponLoading && <Skeleton className="h-6 w-20" />}$
+            {TotalPrice.toFixed(2)}
+          </span>
+        </div>
+
+        <div className="flex justify-between">
+          {!checkCouponLoading && checkCoupon?.total && (
+            <>
+              <span className="font-medium">Discounted Price</span>
+              <span>${checkCoupon.total.toFixed(2)}</span>
+            </>
+          )}
         </div>
 
         {/* PAYMENT */}

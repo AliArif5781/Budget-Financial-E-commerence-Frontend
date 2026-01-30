@@ -241,3 +241,9 @@ export interface ChartDataFormatted {
 export interface couponInterface {
   coupon: string;
 }
+export interface checkCouponInterface {
+  coupon: string;
+  total: number;
+  message?: string;
+  appliedCoupon?: string;
+}

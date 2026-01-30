@@ -1,24 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { handleCouponThunk } from "./coupon.thunk";
-import type { couponInterface } from "@/types/types";
+import { checkCouponThunk, handleCouponThunk } from "./coupon.thunk";
+import type { checkCouponInterface, couponInterface } from "@/types/types";
 
 interface ProductsState {
   coupon: couponInterface | null;
+  checkCoupon: checkCouponInterface | null;
   loading: {
     couponLoading: boolean;
+    checkCouponLoading: boolean;
   };
   error: {
     couponError: string | null;
+    checkCouponError: string | null;
   };
 }
 
 const initialState: ProductsState = {
   coupon: null,
+  checkCoupon: null,
   loading: {
     couponLoading: false,
+    checkCouponLoading: false,
   },
   error: {
     couponError: null,
+    checkCouponError: null,
   },
 };
 
@@ -42,6 +48,22 @@ const couponSlice = createSlice({
         state.error.couponError =
           (action.payload as string) ||
           "Failed To create coupon code. Try Again";
+      })
+
+      // check cooupon applying
+
+      .addCase(checkCouponThunk.pending, (state) => {
+        state.loading.checkCouponLoading = true;
+        state.error.checkCouponError = null;
+      })
+      .addCase(checkCouponThunk.fulfilled, (state, action) => {
+        state.loading.checkCouponLoading = false;
+        state.checkCoupon = action.payload;
+      })
+      .addCase(checkCouponThunk.rejected, (state, action) => {
+        state.loading.checkCouponLoading = false;
+        state.error.checkCouponError =
+          (action.payload as string) || "Invalid Coupon";
       });
   },
 });
