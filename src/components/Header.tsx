@@ -23,6 +23,8 @@ const Header = () => {
     await dispatch(logoutUserThunk());
     navigate("/login", { replace: true });
   };
+
+  console.log(user, "USER");
   return (
     <div className="flex items-center justify-between border-b p-4 px-10">
       <Link to={"/home"}>
