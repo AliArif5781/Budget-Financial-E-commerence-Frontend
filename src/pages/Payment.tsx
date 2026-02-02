@@ -101,6 +101,7 @@ const Payment = () => {
       const result = await dispatch(handlePaymentThunk(Subtotal)).unwrap();
       if (result.payment.status.message === "success") {
         toast.success(result?.message || "Payment successful");
+
         const paymentData = result.payment.data.tracker;
         const val = Number(budget?.budgetAmount) - Number(finalPrice);
 
@@ -108,7 +109,7 @@ const Payment = () => {
           setUserBudgetThunk({ budgetAmount: val, budgetCurrency: "$" }),
         );
 
-        dispatch(
+        const storeResponse = await dispatch(
           storeUserPaymentThunk({
             mode: paymentData.mode,
             token: paymentData.token,
@@ -118,9 +119,12 @@ const Payment = () => {
             environment: paymentData.environment,
             items: paymentItems,
           }),
-        );
+        ).unwrap();
 
-        navigate("/invoice");
+        const orderId = storeResponse?.orderId;
+        console.log(orderId, "ORDER_ID");
+
+        navigate(`/invoice/${orderId}`);
       } else {
         toast.error(result.payment.status.errors || "Payment failed");
       }
