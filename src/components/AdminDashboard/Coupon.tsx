@@ -32,8 +32,8 @@ const Coupon = () => {
     }
 
     dispatch(handleCouponThunk({ coupon }));
-    // setError("");
-    // setCoupon("");
+    setError("");
+    setCoupon("");
   };
   return (
     <div className="space-y-6">

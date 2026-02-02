@@ -9,7 +9,8 @@ export const handleCouponThunk = createAsyncThunk(
   async (coupon: couponInterface, { rejectWithValue }) => {
     try {
       const response = await api.post("coupon/create-coupon", coupon);
-      console.log(response.data, "handleCouponThunk");
+      // console.log(response.data, "handleCouponThunk");
+      toast.success("Coupon created Successfully");
       return response.data;
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
@@ -27,7 +28,7 @@ export const checkCouponThunk = createAsyncThunk(
   async (coupon: checkCouponInterface, { rejectWithValue }) => {
     try {
       const response = await api.post("coupon/check-coupon", coupon);
-      console.log(response.data, "checkCouponThunk");
+      // console.log(response.data, "checkCouponThunk");
       return response.data;
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
