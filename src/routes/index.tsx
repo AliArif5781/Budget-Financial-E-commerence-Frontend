@@ -21,11 +21,13 @@ import AllProducts from "@/pages/AllProducts";
 import UserInvoiceHistory from "@/pages/UserInvoiceHistory";
 import SalesChart from "@/components/Chart/SaleChart";
 import Coupon from "@/components/AdminDashboard/Coupon";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import PublicRoute from "@/components/PublicRoute";
 
 const router = createBrowserRouter([
   {
     path: "",
-    // element: <PublicRoute />,
+    element: <PublicRoute />,
     children: [
       {
         path: "login",
@@ -41,9 +43,9 @@ const router = createBrowserRouter([
   {
     path: "",
     element: (
-      // <ProtectedRoute>
-      // </ProtectedRoute>
-      <Layout />
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
     ),
     children: [
       {
@@ -104,9 +106,9 @@ const router = createBrowserRouter([
   {
     path: "",
     element: (
-      <AdminLayout />
-      // <ProtectedRoute>
-      // </ProtectedRoute>
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
     ),
 
     children: [
