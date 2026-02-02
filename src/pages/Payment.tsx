@@ -27,6 +27,7 @@ const Payment = () => {
   } = useAppSelector((state) => state.user);
   const {
     cartItems,
+    cartLoaded,
     loading: { getAddToCartLoading },
     error,
   } = useAppSelector((state) => state.products);
@@ -48,11 +49,11 @@ const Payment = () => {
   const [Error, setError] = useState("");
 
   useEffect(() => {
-    if (!getAddToCartLoading && cartItems.length === 0) {
+    if (cartLoaded && cartItems.length === 0) {
       toast.error("Your cart is Empty");
       navigate("/home");
     }
-  }, [cartItems, getAddToCartLoading, navigate]);
+  }, [cartLoaded, cartItems, navigate]);
 
   useEffect(() => {
     dispatch(getAddToCartThunk());
@@ -299,12 +300,14 @@ const Payment = () => {
                 setError("");
                 setCoupon(e.target.value);
               }}
+              disabled={checkCoupon?.applied}
               min={7}
             />
             <Button
               variant={"secondary"}
               className="cursor-pointer"
               onClick={handleCoupon}
+              disabled={checkCoupon?.applied}
             >
               Apply Coupon
             </Button>
@@ -335,21 +338,21 @@ const Payment = () => {
 
         {/* Total after shipping and all tax */}
 
-        <div className="flex justify-between">
+        <div className="flex justify-between ">
           <span className="font-medium">
             {checkCoupon?.total ? <span className="">Old Price</span> : "Total"}
           </span>
-          <span className="font-semibold text-lg">
+          <span className="font-medium text-lg">
             {checkCouponLoading && <Skeleton className="h-6 w-20" />}$
             {TotalPrice.toFixed(2)}
           </span>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between font-semibold text-lg">
           {!checkCouponLoading && checkCoupon?.total && (
             <>
-              <span className="font-medium">Discounted Price</span>
-              <span>${checkCoupon.total.toFixed(2)}</span>
+              <span className="">Discounted Price</span>
+              <span className=" ">${checkCoupon.total.toFixed(2)}</span>
             </>
           )}
         </div>
@@ -358,7 +361,9 @@ const Payment = () => {
         <Button
           size="lg"
           className={`cursor-pointer mt-4 w-full`}
-          disabled={isShippingIncomplete || paymentLoading}
+          disabled={
+            isShippingIncomplete || paymentLoading || checkCouponLoading
+          }
           onClick={handlePaymentMethod}
         >
           {paymentLoading ? "Loading..." : "Order Now"}
