@@ -53,11 +53,30 @@ export const storeUserPaymentThunk = createAsyncThunk(
   },
 );
 
+// export const getUserPaymentDetailsThunk = createAsyncThunk(
+//   "user/paymentDetails",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await api.get("payments/getUserPaymentDetails");
+//       console.log(response.data, "getUserPaymentDetailsThunk");
+//       return response.data;
+//     } catch (error) {
+//       const err = error as AxiosError<{ message: string }>;
+//       const message =
+//         err.response?.data.message || "Failed to get Payment Details. ";
+//       toast.error(message);
+//       return rejectWithValue(message);
+//     }
+//   },
+// );
 export const getUserPaymentDetailsThunk = createAsyncThunk(
   "user/paymentDetails",
-  async (_, { rejectWithValue }) => {
+  async (orderId: string, { rejectWithValue }) => {
     try {
-      const response = await api.get("payments/getUserPaymentDetails");
+      const response = await api.get(
+        `payments/getUserPaymentDetails/${orderId}`,
+      );
+      console.log(response.data, "getUserPaymentDetailsThunk");
       return response.data;
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
