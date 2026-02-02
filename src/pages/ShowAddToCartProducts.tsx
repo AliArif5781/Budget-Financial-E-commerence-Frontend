@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hook";
-// import { getAddToCartThunk } from "@/features/products/products.thunk";
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 import {
@@ -17,9 +16,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { storeUserPaymentThunk } from "@/featues/payment/payment.thunk";
-import toast from "react-hot-toast";
-import { Item } from "@radix-ui/react-dropdown-menu";
 
 const ShowAddToCartProducts = () => {
   const navigate = useNavigate();
@@ -136,7 +132,7 @@ POST /payments → uses secret key to finalize the payment.
             </span>{" "}
             exceeds your budget of{" "}
             <span className="font-bold text-red-500">
-              ${budget?.budgetAmount}
+              ${budget?.budgetAmount.toFixed(2)}
             </span>
             . Please reduce some items before proceeding or{" "}
             <span className=" underline font-medium">
