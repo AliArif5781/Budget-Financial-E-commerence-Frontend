@@ -51,6 +51,7 @@ export interface PopularProduct {
 
 interface ProductsState {
   items: Product[];
+  cartLoaded: boolean;
   nextCursor: string | null;
   hasNextPage: boolean;
   cartItems: Product[];
@@ -86,6 +87,7 @@ interface ProductsState {
 
 const initialState: ProductsState = {
   items: [],
+  cartLoaded: false,
   nextCursor: null,
   hasNextPage: false,
   cartItems: [],
@@ -151,8 +153,9 @@ const productsSlice = createSlice({
         state.error.getAddToCartError = null;
       })
       .addCase(getAddToCartThunk.fulfilled, (state, action) => {
-        state.loading.getAddToCartLoading = false;
         state.cartItems = action.payload; // array of Product
+        state.cartLoaded = true;
+        state.loading.getAddToCartLoading = false;
       })
       .addCase(getAddToCartThunk.rejected, (state, action) => {
         state.loading.getAddToCartLoading = false;
