@@ -18,6 +18,7 @@ const Invoice = () => {
   const { getPaymentDetails, loading, error } = useAppSelector(
     (state) => state.payment,
   );
+
   const invoiceRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
