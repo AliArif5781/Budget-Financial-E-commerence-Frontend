@@ -11,7 +11,7 @@ import {
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/app/hook";
-import { SignUpUserThunk } from "@/featues/user/user.thunk";
+import { getUserProfile, SignUpUserThunk } from "@/featues/user/user.thunk";
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -31,11 +31,15 @@ const SignupForm = () => {
         lastName,
         email,
         password,
-      })
+      }),
     );
 
     if (SignUpUserThunk.fulfilled.match(signupResult)) {
-      navigate("/home", { replace: true });
+      const profileAction = await dispatch(getUserProfile());
+      const user = profileAction.payload;
+      if (user) {
+        navigate("/home", { replace: true });
+      }
     }
   };
 
