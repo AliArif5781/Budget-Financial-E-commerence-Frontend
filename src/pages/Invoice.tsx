@@ -11,18 +11,21 @@ import { useRef } from "react";
 import domtoimage from "dom-to-image-more";
 import jsPDF from "jspdf";
 import { Button } from "@/components/ui/button";
+import { useParams } from "react-router-dom";
 // import { saveUserInvoiceThunk } from "@/featues/invoice/invoice.thunk";
 
 const Invoice = () => {
+  const { orderId } = useParams();
   const dispatch = useAppDispatch();
   const { getPaymentDetails, loading, error } = useAppSelector(
     (state) => state.payment,
   );
-
   const invoiceRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(getUserPaymentDetailsThunk());
+    if (orderId) {
+      dispatch(getUserPaymentDetailsThunk(orderId));
+    }
   }, [dispatch]);
 
   const handleDownloadPDF = async () => {
@@ -72,25 +75,27 @@ const Invoice = () => {
     }
   };
 
-  const SubTotal = (getPaymentDetails?.amount ?? 0) - 14;
+  // const SubTotal = (getPaymentDetails?.amount ?? 0) - 14;
 
-  if (loading.getUserPaymentDetailsLoading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center animate-pulse text-muted-foreground">
-        Loading...
-      </div>
-    );
-  }
+  // if (loading.getUserPaymentDetailsLoading) {
+  //   return (
+  //     <div className="min-h-screen flex justify-center items-center animate-pulse text-muted-foreground">
+  //       Loading...
+  //     </div>
+  //   );
+  // }
 
-  if (error.getUserPaymentDetailsError) {
-    return (
-      <div className="flex justify-center items-center animate-pulse text-red-600">
-        {error.getUserPaymentDetailsError}
-      </div>
-    );
-  }
+  // if (error.getUserPaymentDetailsError) {
+  //   return (
+  //     <div className="flex justify-center items-center animate-pulse text-red-600">
+  //       {error.getUserPaymentDetailsError}
+  //     </div>
+  //   );
+  // }
 
-  console.log(getPaymentDetails, "g");
+  console.log(orderId, " INVOICE PAGE ORDER ID");
+  console.log(typeof orderId, " INVOICE PAGE ORDER ID");
+  // console.log(getPaymentDetails, "g");
   return (
     <div className="w-full">
       <div className=" flex justify-center items-center">
@@ -198,7 +203,7 @@ const Invoice = () => {
                 <div className="space-y-2 border-b pb-2 mt-3 text-sm">
                   <div className="flex justify-end text-xs text-muted-foreground gap-2">
                     <span>SubTotal:</span>
-                    <span>{SubTotal?.toFixed(2)}</span>
+                    {/* <span>{SubTotal?.toFixed(2)}</span> */}
                   </div>
                   <div className="flex justify-end text-xs text-muted-foreground gap-2">
                     <span>Shipping:</span>
