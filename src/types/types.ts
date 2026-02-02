@@ -120,6 +120,7 @@ export interface PaymentResponse {
   user: PaymentUser;
   createdAt: string;
   updatedAt: string;
+  orderId: string;
   __v: number;
 }
 
