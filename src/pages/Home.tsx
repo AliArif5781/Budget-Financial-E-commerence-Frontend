@@ -91,6 +91,7 @@ const Home = () => {
               <div className="">
                 <img
                   src={headset}
+                  aria-placeholder="Product Image"
                   className="h-48 md:h-full md:w-full object-cover"
                   alt=""
                   loading="lazy"
