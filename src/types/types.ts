@@ -246,4 +246,5 @@ export interface checkCouponInterface {
   total: number;
   message?: string;
   appliedCoupon?: string;
+  applied?: boolean;
 }
