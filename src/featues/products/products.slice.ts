@@ -7,6 +7,7 @@ import {
   getAllProductsThunk,
   getProductsThunk,
   removeFromCartThunk,
+  removeProductItemThunk,
   selectedProductThunk,
   updateCartQtyThunk,
 } from "./products.thunk";
@@ -71,6 +72,7 @@ interface ProductsState {
     getAllProductsLoading: boolean;
     productsCountLoading: boolean;
     moreCursorLoading: boolean;
+    removeSingleProductLoading: boolean;
     // paymentLoading: boolean;
   };
   error: {
@@ -81,6 +83,7 @@ interface ProductsState {
     getAllProductsError: string | null;
     productsCountError: string | null;
     moreCursorError: string | null;
+    removeSingleProductError: string | null;
     // paymentError: string | null;
   };
 }
@@ -106,6 +109,7 @@ const initialState: ProductsState = {
     getAllProductsLoading: false,
     productsCountLoading: false,
     moreCursorLoading: false,
+    removeSingleProductLoading: false,
     // paymentLoading: false,
   },
   error: {
@@ -116,6 +120,7 @@ const initialState: ProductsState = {
     getAllProductsError: null,
     productsCountError: null,
     moreCursorError: null,
+    removeSingleProductError: null,
     // paymentError: null,
   },
 };
@@ -251,6 +256,30 @@ const productsSlice = createSlice({
         state.loading.moreCursorLoading = false;
         state.error.moreCursorError =
           (action.payload as string) || "Failed to load products";
+      })
+
+      // removeProductItemThunk
+
+      .addCase(removeProductItemThunk.pending, (state) => {
+        state.loading.removeSingleProductLoading = true;
+        state.error.removeSingleProductError = null;
+      })
+      .addCase(removeProductItemThunk.fulfilled, (state, action) => {
+        state.loading.removeSingleProductLoading = false;
+
+        const deletedId = action.meta.arg;
+
+        if (state.getAllProducts?.products) {
+          state.getAllProducts.products = state.getAllProducts.products.filter(
+            (item) => item._id !== deletedId,
+          );
+        }
+      })
+
+      .addCase(removeProductItemThunk.rejected, (state, action) => {
+        state.loading.removeSingleProductLoading = false;
+        state.error.removeSingleProductError =
+          (action.payload as string) || "Failed to delete product";
       });
   },
 });

@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hook";
 import {
   getAllProductsThunk,
   removeFromCartThunk,
+  removeProductItemThunk,
 } from "@/featues/products/products.thunk";
 import React, { useEffect } from "react";
 import { Button } from "../ui/button";
@@ -12,20 +13,20 @@ import { Badge } from "../ui/badge";
 const Products = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { getAllProducts, loading, error } = useAppSelector(
-    (state) => state.products,
-  );
+  const {
+    getAllProducts,
+    loading: { removeSingleProductLoading },
+    error: { removeSingleProductError },
+  } = useAppSelector((state) => state.products);
 
-  console.log(getAllProducts, "G");
   useEffect(() => {
     dispatch(getAllProductsThunk());
   }, [dispatch]);
 
   const handleRemove = (id: string) => {
-    dispatch(removeFromCartThunk(id));
+    dispatch(removeProductItemThunk(id));
   };
 
-  console.log(getAllProducts, "check");
   return (
     <div className="p-5">
       <div>

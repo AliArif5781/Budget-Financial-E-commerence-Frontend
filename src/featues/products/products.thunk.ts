@@ -159,9 +159,9 @@ export const updateCartQtyThunk = createAsyncThunk(
 
 export const removeFromCartThunk = createAsyncThunk(
   "cartProduct/delete",
-  async (id: string, { rejectWithValue }) => {
+  async (productId: string, { rejectWithValue }) => {
     try {
-      const response = await api.delete(`/cart/${id}`);
+      const response = await api.delete(`cart/${productId}`);
       toast.success(response.data?.message || "Remove product Successfully");
       return response.data;
     } catch (error) {
@@ -243,6 +243,25 @@ export const getAllProductsCursorThunk = createAsyncThunk(
       const err = error as AxiosError<{ message: string }>;
       const message =
         err.response?.data.message || "Failed to get Products. Try Again";
+
+      toast.error(message);
+      return rejectWithValue(message);
+    }
+  },
+);
+
+export const removeProductItemThunk = createAsyncThunk(
+  "delete/product",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await api.delete(`products/deleteProduct/${id}`);
+      console.log(response.data, "removeProductItemThunk");
+      toast.success(response.data.message);
+      return response.data;
+    } catch (error) {
+      const err = error as AxiosError<{ message: string }>;
+      const message =
+        err.response?.data.message || "Failed to Delete Product. Try Again";
 
       toast.error(message);
       return rejectWithValue(message);
