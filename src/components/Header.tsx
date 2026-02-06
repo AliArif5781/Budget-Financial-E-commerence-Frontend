@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import { ThemeToggle } from "./Theme-Toggle";
 import {
   DropdownMenu,
@@ -24,7 +21,6 @@ const Header = () => {
     navigate("/login", { replace: true });
   };
 
-  console.log(user, "USER");
   return (
     <div className="flex items-center justify-between border-b p-4 px-10">
       <Link to={"/home"}>
@@ -53,7 +49,7 @@ const Header = () => {
             <DropdownMenuItem>
               <Link to={"/home"}>Home</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            {/* <DropdownMenuItem>Settings</DropdownMenuItem> */}
             {user?.role === "Admin" && (
               <DropdownMenuItem>
                 <Link to={"/dashboard"}>Dashboard</Link>

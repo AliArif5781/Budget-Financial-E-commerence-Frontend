@@ -16,3 +16,5 @@ export const getOptimizedMedia = (res: UploadResponse) => {
     mediaType,
   };
 };
+
+// Apple MacBook Pro 14-inch (2025) – M5

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { X } from "lucide-react";
 import { Label } from "@radix-ui/react-dropdown-menu";

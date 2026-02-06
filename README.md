@@ -104,13 +104,19 @@ If you want, I can:
 
 Just tell me 👍
 
-----------------------------------------------------------
--------------------------------------------------------
---------------------------------------------------------
----------------------------------------------------------
----------------------------------------------------------
---------------------------------------------------------
---------------------------------------------------------
+---
+
+---
+
+---
+
+---
+
+---
+
+---
+
+---
 
 Yes — **exactly that 👍**
 You’ve understood it correctly.
@@ -175,7 +181,6 @@ From a **learning and technical perspective**, they share **80–90% of the same
 
 - Store every order in database
 - Track:
-
   - Who bought
   - What they bought
   - When they bought
@@ -241,3 +246,24 @@ This is **very realistic** and **industry-level** functionality.
 
 ---
 
+<!-- passowrd validation -->
+<!-- sign up issue -->
+
+USER
+|
+|--- adds item to cart ---> CART (temporary)
+| { userId, items }
+|
+|--- clicks proceed to payment ---> CREATE ORDER (snapshot of cart)
+| { orderId, userId, items, total, status:PENDING }
+|
+|--- makes payment ---> PAYMENT SUCCESS
+| { paymentId, orderId, userId, amount, status:PAID }
+|
+|--- CREATE INVOICE (linked to orderId)
+| { invoiceId, orderId, userId, items, total }
+|
+|--- CLEAR CART (items removed)
+|
+|--- USER sees invoice page using orderId
+/invoice/:orderId

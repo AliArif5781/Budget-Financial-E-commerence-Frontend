@@ -51,7 +51,6 @@ const couponSlice = createSlice({
       })
 
       // check cooupon applying
-
       .addCase(checkCouponThunk.pending, (state) => {
         state.loading.checkCouponLoading = true;
         state.error.checkCouponError = null;

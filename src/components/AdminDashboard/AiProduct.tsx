@@ -32,9 +32,7 @@ export default function GenerateAiModal({
   setOpen: (val: boolean) => void;
 }) {
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector(
-    (state) => state.aiProductGenerator,
-  );
+  const { loading } = useAppSelector((state) => state.aiProductGenerator);
   const [localError, setLocalError] = useState("");
   const [data, setData] = useState({
     name: "",
@@ -57,6 +55,7 @@ export default function GenerateAiModal({
     );
     setOpen(false);
   };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="max-w-md">

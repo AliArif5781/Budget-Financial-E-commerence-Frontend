@@ -12,7 +12,7 @@ const SelectedProductDetailPage = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const { selectedProduct, loading, error } = useAppSelector(
-    (state) => state.products
+    (state) => state.products,
   );
 
   const preloaded = (location.state as any)?.selectedProduct;
@@ -54,12 +54,12 @@ const SelectedProductDetailPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
         {/* Product Image */}
         <div className="md:col-span-6 flex justify-center">
-          <div className="w-full max-w-md rounded-xl overflow-hidden">
+          <div className="w-full max-w-md rounded-xl overflow-hidden m-auto">
             <img
               src={selectedProduct?.mediaUrl}
               alt={selectedProduct?.title}
               loading="lazy"
-              className="lg:h-full lg:w-full object-cover"
+              className="object-cover"
             />
           </div>
         </div>
@@ -137,13 +137,13 @@ const SelectedProductDetailPage = () => {
               >
                 Add to Cart
               </Button>
-              <Button
+              {/* <Button
                 className="flex-1 rounded-lg border border-border px-6 py-3 font-semibold hover:cursor-pointer"
                 variant={"outline"}
                 size={"icon-lg"}
               >
                 Buy Now
-              </Button>
+              </Button> */}
             </div>
           </section>
         </div>

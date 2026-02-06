@@ -7,7 +7,7 @@ export const setUserBudgetThunk = createAsyncThunk(
   "user/setBudget",
   async (
     { budgetAmount, budgetCurrency }: BudgetPayload,
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const response = await api.post("budget/setUserBudget", {
@@ -19,13 +19,13 @@ export const setUserBudgetThunk = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       toast.error(
-        error.response?.data?.message || "Failed To set Budget, Try Again"
+        error.response?.data?.message || "Failed To set Budget, Try Again",
       );
       return rejectWithValue(
-        error.response?.data?.message || "Failed To set Budget, Try Again"
+        error.response?.data?.message || "Failed To set Budget, Try Again",
       );
     }
-  }
+  },
 );
 
 export const getUserBudgetThunk = createAsyncThunk(
@@ -33,11 +33,11 @@ export const getUserBudgetThunk = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("budget/getUserBudget");
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       return response.data;
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch budget"
+        error.response?.data?.message || "Failed to fetch budget",
       );
     }
   },
@@ -45,8 +45,8 @@ export const getUserBudgetThunk = createAsyncThunk(
     condition: (_, { getState }) => {
       const { budget } = getState() as any;
       if (budget.budgetSet) {
-        return false; // ❌ cancel API
+        return false;
       }
     },
-  }
+  },
 );

@@ -54,8 +54,7 @@ export default function BudgetTracker() {
           <div className="rounded-xl p-5 text-center">
             <p className="text-xs uppercase text-slate-400">Total Budget</p>
             <p className="text-3xl font-bold mt-1">
-              {currency ?? "--"}{" "}
-              {budget.budget?.budgetAmount.toFixed(2) || amount || "0"}
+              {currency ?? "--"} {budget.budget?.budgetAmount || amount || "0"}
             </p>
           </div>
 
@@ -86,7 +85,7 @@ export default function BudgetTracker() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="$">$ Dollar</SelectItem>
-                <SelectItem value="Rs">Rs Rupees</SelectItem>
+                {/* <SelectItem value="Rs">Rs Rupees</SelectItem> */}
               </SelectContent>
             </Select>
           </div>

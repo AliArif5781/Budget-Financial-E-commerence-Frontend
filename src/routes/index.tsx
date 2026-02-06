@@ -26,7 +26,7 @@ import PublicRoute from "@/components/PublicRoute";
 
 const router = createBrowserRouter([
   {
-    path: "",
+    path: "/",
     element: <PublicRoute />,
     children: [
       {
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "",
+    path: "/",
     element: (
       <ProtectedRoute>
         <Layout />
@@ -49,7 +49,8 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "",
+        // path: "",
+        index: true,
         element: <Home />,
       },
       {
@@ -104,7 +105,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "",
+    path: "/",
     element: (
       <ProtectedRoute>
         <AdminLayout />

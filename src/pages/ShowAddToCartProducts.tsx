@@ -127,12 +127,10 @@ POST /payments → uses secret key to finalize the payment.
           </DialogHeader>
           <p className="py-2 text-muted-foreground">
             Your total cart amount is{" "}
-            <span className=" font-bold text-green-500">
-              ${totalPrice.toFixed(2)}
-            </span>{" "}
+            <span className=" font-bold text-green-500">${totalPrice}</span>{" "}
             exceeds your budget of{" "}
             <span className="font-bold text-red-500">
-              ${budget?.budgetAmount.toFixed(2)}
+              ${budget?.budgetAmount ?? 0}
             </span>
             . Please reduce some items before proceeding or{" "}
             <span className=" underline font-medium">
@@ -244,9 +242,7 @@ POST /payments → uses secret key to finalize the payment.
               <h2 className="text-xl font-semibold mb-4">Check-out</h2>
               <div className="flex justify-between items-center border-t pt-4 mt-4">
                 <span className="text-xl font-semibold">Total:</span>
-                <span className="text-xl font-bold">
-                  ${totalPrice.toFixed(2)}
-                </span>
+                <span className="text-xl font-bold">${totalPrice}</span>
               </div>
               {errors && (
                 <div className="text-red-500 text-xs py-2">{errors}</div>

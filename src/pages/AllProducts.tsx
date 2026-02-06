@@ -95,16 +95,16 @@ const AllProducts = () => {
           </div>
 
           {/* Search */}
-          <Command className="max-w-sm rounded-lg border">
+          {/* <Command className="max-w-sm rounded-lg border">
             <CommandInput
               placeholder="Search products..."
-              //   value={query}
-              //   onValueChange={(value) => setQuery(value)}
+                value={query}
+                onValueChange={(value) => setQuery(value)}
             />
             <CommandList>
-              {/* <CommandEmpty>No results found.</CommandEmpty> */}
+              <CommandEmpty>No results found.</CommandEmpty>
             </CommandList>
-          </Command>
+          </Command> */}
         </div>
 
         <Separator className="mb-6" />
