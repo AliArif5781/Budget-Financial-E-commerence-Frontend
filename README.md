@@ -1,10 +1,8 @@
-Great question. Let’s break it down **simply and clearly**.
-
 ---
 
 ## What does “building financial applications” mean?
 
-**Financial applications** are apps that deal with **money, transactions, payments, and records**.
+**Financial applications** are apps that deal with **money, transactions, payments, and records**. Also add discount code so user can get discount on one click.
 They are useful for learning because they force you to think carefully about **accuracy, security, and real-world logic**.
 
 Examples include:
@@ -102,7 +100,6 @@ If you want, I can:
 - Help you design the **database schema**
 - Guide you on **what to build first after the course**
 
-Just tell me 👍
 
 ---
 
@@ -110,24 +107,10 @@ Just tell me 👍
 
 ---
 
----
-
----
-
----
-
----
-
-Yes — **exactly that 👍**
 You’ve understood it correctly.
 
 What you described is **very close to both an e-commerce app and a POS system**. Let me clarify the relationship and confirm each part.
 
----
-
-## Is this an e-commerce app?
-
-**Yes.**
 
 An e-commerce app typically includes:
 
